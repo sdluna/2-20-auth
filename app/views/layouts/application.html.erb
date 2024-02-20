@@ -11,13 +11,19 @@
 
   <body>
     <p>
+      <%user= User.find_by({"id" => cookies["user_id"]}) %>
+
       <!-- if no user logged-in, display signup and login links -->
+      <%if user == nil%>
       <!-- else, if user logged-in, display user name and logout link -->
       <a href="/users/new">Sign Up</a>
       |
       <a href="/login">Login</a>
-      |
-      <a href="/logout">Logout</a>
+      <%else%>
+        Hey, <%=user["first_name"]%>
+        |
+        <a href="/logout">Logout</a>
+      <%end%>
     </p>
 
     <p>

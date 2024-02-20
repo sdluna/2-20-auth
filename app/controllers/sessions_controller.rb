@@ -11,6 +11,8 @@ class SessionsController < ApplicationController
     if @user != nil 
     # 3. if they know their password -> login is successful - and now with encrypted
       if BCrypt::Password.new(@user["password"]) == params["password"]
+        cookies["monster"]="me like cookies"
+        cookies["user_id"]=@user["id"]
         flash["notice"] = "Welcome."
         redirect_to "/companies"
       else 
@@ -26,6 +28,8 @@ end
 
   def destroy
     # logout the user
+    cookies["monster"]=nil
+    session["user_id"]=nil
     flash["notice"] = "Goodbye."
     redirect_to "/login"
   end
